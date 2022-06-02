@@ -31,15 +31,19 @@ export class ProfileService {
         select: {
           id: true,
           title: true,
+          imageUrl: true,
           user: {
             select: {
               name: true,
-              email: true,
             },
           },
           games: {
             select: {
               title: true,
+              coverImageUrl: true,
+              description: true,
+              year: true,
+              imdbScore: true,
             },
           },
         },
@@ -52,15 +56,19 @@ export class ProfileService {
       select: {
         id: true,
         title: true,
+        games: {
+          select: {
+            title: true,
+            coverImageUrl: true,
+            description: true,
+            year: true,
+            imdbScore: true,
+          },
+        },
         user: {
           select: {
             name: true,
             email: true,
-          },
-        },
-        games: {
-          select: {
-            title: true,
           },
         },
         _count: {
@@ -79,15 +87,15 @@ export class ProfileService {
         user: {
           select: {
             name: true,
-            email: true,
           },
         },
         games: {
           select: {
-            id: true,
             title: true,
             coverImageUrl: true,
             description: true,
+            year: true,
+            imdbScore: true,
           },
         },
         _count: {
@@ -100,10 +108,23 @@ export class ProfileService {
   }
 
   update(id: string, updateProfileDto: UpdateProfileDto) {
-    return `This action updates a #${id} profile`;
+    return this.prisma.profile
+      .update({
+        where: { id },
+        data: {
+          title: updateProfileDto.title,
+          imageUrl: updateProfileDto.imageUrl,
+          games: {
+            connect: updateProfileDto.games.map((gameId) => ({
+              id: gameId,
+            })),
+          },
+        },
+      })
+      .catch(handleError);
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} profile`;
+  delete(id: string) {
+    this.prisma.profile.delete({ where: { id } });
   }
 }

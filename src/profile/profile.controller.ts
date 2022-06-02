@@ -54,6 +54,6 @@ export class ProfileController {
     summary: 'Delete a profile by ID',
   })
   remove(@Param('id') id: string) {
-    return this.profileService.remove(id);
+    return this.profileService.delete(id);
   }
 }

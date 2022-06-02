@@ -10,18 +10,39 @@ datasource db {
 model Game {
   id                 String @id @default(uuid())
   title              String @unique
-  coverImageUrl      String
+  coverImageUrl      String @map("cover_image_url")
   description        String
   year               Int
-  imdbScore          Int
-  trailerYouTubeUrl  String
-  gameplayYouTubeUrl String
+  imdbScore          Int    @map("imdb_score")
+  trailerYouTubeUrl  String @map("trailer_youtube_url")
+  gameplayYouTubeUrl String @map("gameplay_youtube_url")
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("game")
 }
 
 model Genre {
   id   String @id @default(uuid())
   name String @unique
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("genre")
+}
+
+model User {
+  id       String  @id @default(uuid())
+  name     String
+  email    String  @unique
+  password String
+  cpf      String  @unique
+  isAdmin  Boolean @default(false) @map("is_admin")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("user")
 }

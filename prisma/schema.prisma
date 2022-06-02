@@ -17,8 +17,8 @@ model Game {
   trailerYouTubeUrl  String @map("trailer_youtube_url")
   gameplayYouTubeUrl String @map("gameplay_youtube_url")
 
-  users  User[]
-  genres Genre[]
+  profiles Profile[]
+  genres   Genre[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -47,7 +47,6 @@ model User {
   isAdmin  Boolean @default(false) @map("is_admin")
 
   profiles Profile[]
-  games    Game[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -62,6 +61,8 @@ model Profile {
 
   user   User   @relation(fields: [userId], references: [id])
   userId String @map("user_id")
+
+  games Game[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

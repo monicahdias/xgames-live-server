@@ -48,11 +48,55 @@ export class ProfileService {
   }
 
   findAll() {
-    return `This action returns all profile`;
+    return this.prisma.profile.findMany({
+      select: {
+        id: true,
+        title: true,
+        user: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+        games: {
+          select: {
+            title: true,
+          },
+        },
+        _count: {
+          select: {
+            games: true,
+          },
+        },
+      },
+    });
   }
 
   findOne(id: string) {
-    return `This action returns a #${id} profile`;
+    return this.prisma.profile.findUnique({
+      where: { id },
+      include: {
+        user: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+        games: {
+          select: {
+            id: true,
+            title: true,
+            coverImageUrl: true,
+            description: true,
+          },
+        },
+        _count: {
+          select: {
+            games: true,
+          },
+        },
+      },
+    });
   }
 
   update(id: string, updateProfileDto: UpdateProfileDto) {

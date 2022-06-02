@@ -20,3 +20,8 @@ model Game {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Genre {
+  id   String @id @default(uuid())
+  name String @unique
+}

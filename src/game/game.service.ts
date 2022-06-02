@@ -7,7 +7,7 @@ export class GameService {
   games: Game[] = [];
 
   findAll() {
-    return 'Find all games';
+    return this.games;
   }
 
   create(createGameDto: CreateGameDto) {

@@ -18,9 +18,33 @@ export class ProfileService {
       },
       title: createProfileDto.title,
       imageUrl: createProfileDto.imageUrl,
+      games: {
+        connect: createProfileDto.games.map((gameId) => ({
+          id: gameId,
+        })),
+      },
     };
 
-    return this.prisma.profile.create({ data }).catch(handleError);
+    return this.prisma.profile
+      .create({
+        data,
+        select: {
+          id: true,
+          title: true,
+          user: {
+            select: {
+              name: true,
+              email: true,
+            },
+          },
+          games: {
+            select: {
+              title: true,
+            },
+          },
+        },
+      })
+      .catch(handleError);
   }
 
   findAll() {

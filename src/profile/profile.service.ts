@@ -19,11 +19,20 @@ export class ProfileService {
       title: createProfileDto.title,
       imageUrl: createProfileDto.imageUrl,
       games: {
-        connect: createProfileDto.games.map((gameId) => ({
-          id: gameId,
-        })),
+        createMany: {
+          data: [
+            {
+              gameId: createProfileDto.games[0],
+              isFavorite: true,
+            },
+          ],
+        },
       },
     };
+
+    // createProfileDto.games.map((gameId) => ({
+    //   id: gameId,
+    // })),
 
     return this.prisma.profile
       .create({
@@ -37,15 +46,7 @@ export class ProfileService {
               name: true,
             },
           },
-          games: {
-            select: {
-              title: true,
-              coverImageUrl: true,
-              description: true,
-              year: true,
-              imdbScore: true,
-            },
-          },
+          games: true,
         },
       })
       .catch(handleError);
@@ -56,15 +57,7 @@ export class ProfileService {
       select: {
         id: true,
         title: true,
-        games: {
-          select: {
-            title: true,
-            coverImageUrl: true,
-            description: true,
-            year: true,
-            imdbScore: true,
-          },
-        },
+        games: true,
         user: {
           select: {
             name: true,
@@ -89,15 +82,7 @@ export class ProfileService {
             name: true,
           },
         },
-        games: {
-          select: {
-            title: true,
-            coverImageUrl: true,
-            description: true,
-            year: true,
-            imdbScore: true,
-          },
-        },
+        games: true,
         _count: {
           select: {
             games: true,

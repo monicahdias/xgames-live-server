@@ -79,8 +79,5 @@ model ProfileGame {
   game   Game   @relation(fields: [gameId], references: [id])
   gameId String @map("game_id")
 
-  isFavorite Boolean @map("is_favorite")
-
-  @@unique([profileId, gameId])
   @@map("profile_game")
 }

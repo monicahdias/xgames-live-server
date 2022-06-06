@@ -9,11 +9,4 @@ export class CreateProfileGameDto {
     example: '3b2e6023-a2ac-4e21-a76a-baa6df036a3f',
   })
   gameId: string;
-
-  @IsBoolean()
-  @ApiProperty({
-    description: 'Favorite game',
-    example: true,
-  })
-  isFavorite: boolean;
 }

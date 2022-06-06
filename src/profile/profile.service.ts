@@ -22,7 +22,6 @@ export class ProfileService {
         createMany: {
           data: createProfileDto.games.map((createProfileGameDto) => ({
             gameId: createProfileGameDto.gameId,
-            isFavorite: createProfileGameDto.isFavorite,
           })),
         },
       },
@@ -47,7 +46,6 @@ export class ProfileService {
                   title: true,
                 },
               },
-              isFavorite: true,
             },
           },
         },
@@ -92,7 +90,6 @@ export class ProfileService {
                 title: true,
               },
             },
-            isFavorite: true,
           },
         },
       },
@@ -112,7 +109,6 @@ export class ProfileService {
         createMany: {
           data: updateProfileDto.games.map((updateProfileGameDto) => ({
             gameId: updateProfileGameDto.gameId,
-            isFavorite: updateProfileGameDto.isFavorite,
           })),
         },
       },
@@ -138,7 +134,6 @@ export class ProfileService {
                   title: true,
                 },
               },
-              isFavorite: true,
             },
           },
         },

@@ -20,19 +20,13 @@ export class ProfileService {
       imageUrl: createProfileDto.imageUrl,
       games: {
         createMany: {
-          data: [
-            {
-              gameId: createProfileDto.games[0],
-              isFavorite: true,
-            },
-          ],
+          data: createProfileDto.games.map((createProfileGameDto) => ({
+            gameId: createProfileGameDto.gameId,
+            isFavorite: createProfileGameDto.isFavorite,
+          })),
         },
       },
     };
-
-    // createProfileDto.games.map((gameId) => ({
-    //   id: gameId,
-    // })),
 
     return this.prisma.profile
       .create({
@@ -46,7 +40,16 @@ export class ProfileService {
               name: true,
             },
           },
-          games: true,
+          games: {
+            select: {
+              game: {
+                select: {
+                  title: true,
+                },
+              },
+              isFavorite: true,
+            },
+          },
         },
       })
       .catch(handleError);
@@ -82,10 +85,14 @@ export class ProfileService {
             name: true,
           },
         },
-        games: true,
-        _count: {
+        games: {
           select: {
-            games: true,
+            game: {
+              select: {
+                title: true,
+              },
+            },
+            isFavorite: true,
           },
         },
       },
@@ -93,16 +100,46 @@ export class ProfileService {
   }
 
   update(id: string, updateProfileDto: UpdateProfileDto) {
+    const data: Prisma.ProfileUpdateInput = {
+      user: {
+        connect: {
+          id: updateProfileDto.userId,
+        },
+      },
+      title: updateProfileDto.title,
+      imageUrl: updateProfileDto.imageUrl,
+      games: {
+        createMany: {
+          data: updateProfileDto.games.map((updateProfileGameDto) => ({
+            gameId: updateProfileGameDto.gameId,
+            isFavorite: updateProfileGameDto.isFavorite,
+          })),
+        },
+      },
+    };
+
     return this.prisma.profile
       .update({
         where: { id },
-        data: {
-          title: updateProfileDto.title,
-          imageUrl: updateProfileDto.imageUrl,
+        data,
+        select: {
+          id: true,
+          title: true,
+          imageUrl: true,
+          user: {
+            select: {
+              name: true,
+            },
+          },
           games: {
-            connect: updateProfileDto.games.map((gameId) => ({
-              id: gameId,
-            })),
+            select: {
+              game: {
+                select: {
+                  title: true,
+                },
+              },
+              isFavorite: true,
+            },
           },
         },
       })

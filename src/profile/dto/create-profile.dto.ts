@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsString, IsUrl, IsUUID, ValidateNested } from 'class-validator';
-import { CreateProfileGameDto } from './create-profile-game.dto';
+import { CreateFavoriteGameDto } from './create-favorite-game.dto';
 
 export class CreateProfileDto {
   @IsString()
@@ -26,10 +26,10 @@ export class CreateProfileDto {
   imageUrl: string;
 
   @ValidateNested({ each: true })
-  @Type(() => CreateProfileGameDto)
+  @Type(() => CreateFavoriteGameDto)
   @ApiProperty({
     description: 'Profile games',
-    type: [CreateProfileGameDto],
+    type: [CreateFavoriteGameDto],
   })
-  games: CreateProfileGameDto[];
+  games: CreateFavoriteGameDto[];
 }

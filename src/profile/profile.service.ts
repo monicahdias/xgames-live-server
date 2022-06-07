@@ -20,8 +20,8 @@ export class ProfileService {
       imageUrl: createProfileDto.imageUrl,
       games: {
         createMany: {
-          data: createProfileDto.games.map((createProfileGameDto) => ({
-            gameId: createProfileGameDto.gameId,
+          data: createProfileDto.games.map((createFavoriteGameDto) => ({
+            gameId: createFavoriteGameDto.gameId,
           })),
         },
       },
@@ -107,8 +107,8 @@ export class ProfileService {
       imageUrl: updateProfileDto.imageUrl,
       games: {
         createMany: {
-          data: updateProfileDto.games.map((updateProfileGameDto) => ({
-            gameId: updateProfileGameDto.gameId,
+          data: updateProfileDto.games.map((updateFavoriteGameDto) => ({
+            gameId: updateFavoriteGameDto.gameId,
           })),
         },
       },

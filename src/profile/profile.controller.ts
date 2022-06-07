@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   UseGuards,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { ProfileService } from './profile.service';
 import { CreateProfileDto } from './dto/create-profile.dto';
@@ -51,15 +53,34 @@ export class ProfileController {
   @ApiOperation({
     summary: 'Update a profile by ID',
   })
-  update(@Param('id') id: string, @Body() updateProfileDto: UpdateProfileDto) {
-    return this.profileService.update(id, updateProfileDto);
+  update(
+    @LoggedUser() user: User,
+    @Param('id') id: string,
+    @Body() updateProfileDto: UpdateProfileDto,
+  ) {
+    return this.profileService.update(user.id, id, updateProfileDto);
+  }
+
+  @Patch('favoriteGame/:id')
+  @ApiOperation({
+    summary: 'Add a favorite game to a profile',
+  })
+  updateFavorite(
+    @Param('id') id: string,
+    @Body() updateProfileDto: UpdateProfileDto,
+  ) {
+    return this.profileService.addOrRemoveFavoriteGame(
+      id,
+      updateProfileDto.favoriteGameId,
+    );
   }
 
   @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
     summary: 'Delete a profile by ID',
   })
-  remove(@Param('id') id: string) {
-    return this.profileService.delete(id);
+  delete(@LoggedUser() user: User, @Param('id') id: string) {
+    return this.profileService.delete(user.id, id);
   }
 }

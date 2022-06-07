@@ -9,11 +9,11 @@ import { UpdateProfileDto } from './dto/update-profile.dto';
 export class ProfileService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createProfileDto: CreateProfileDto) {
+  create(userId: string, createProfileDto: CreateProfileDto) {
     const data: Prisma.ProfileCreateInput = {
       user: {
         connect: {
-          id: createProfileDto.userId,
+          id: userId,
         },
       },
       title: createProfileDto.title,
@@ -96,11 +96,11 @@ export class ProfileService {
     });
   }
 
-  update(id: string, updateProfileDto: UpdateProfileDto) {
+  update(userId: string, updateProfileDto: UpdateProfileDto) {
     const data: Prisma.ProfileUpdateInput = {
       user: {
         connect: {
-          id: updateProfileDto.userId,
+          id: userId,
         },
       },
       title: updateProfileDto.title,
@@ -116,7 +116,7 @@ export class ProfileService {
 
     return this.prisma.profile
       .update({
-        where: { id },
+        where: { id: updateProfileDto.userId },
         data,
         select: {
           id: true,

@@ -4,13 +4,6 @@ import { IsString, IsUrl, IsUUID } from 'class-validator';
 export class CreateProfileDto {
   @IsString()
   @ApiProperty({
-    description: 'User ID',
-    example: '751d3728-5b0d-4aac-ab79-e263144908a0',
-  })
-  userId: string;
-
-  @IsString()
-  @ApiProperty({
     description: 'Profile name',
     example: 'Monica',
   })

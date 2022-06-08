@@ -20,6 +20,7 @@ async function bootstrap() {
     .addTag('genre')
     .addTag('user')
     .addTag('profile')
+    .addTag('homepage')
     .addBearerAuth()
     .build();
 

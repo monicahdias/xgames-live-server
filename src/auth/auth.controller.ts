@@ -36,6 +36,6 @@ export class AuthController {
   })
   @ApiBearerAuth()
   profile(@LoggedUser() user: User) {
-    return user;
+    return { user };
   }
 }

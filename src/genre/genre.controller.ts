@@ -12,6 +12,8 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { LoggedUser } from 'src/auth/logged-user.decorator';
+import { User } from 'src/user/entities/user.entity';
 import { CreateGenreDto } from './dto/create-genre.dto';
 import { UpdateGenreDto } from './dto/update-genre.dto';
 import { Genre } from './entities/genre.entity';
@@ -44,16 +46,23 @@ export class GenreController {
   @ApiOperation({
     summary: 'Create a new genre',
   })
-  create(@Body() dto: CreateGenreDto): Promise<Genre> {
-    return this.genreService.create(dto);
+  create(
+    @LoggedUser() user: User,
+    @Body() dto: CreateGenreDto,
+  ): Promise<Genre> {
+    return this.genreService.create(dto, user);
   }
 
   @Patch(':id')
   @ApiOperation({
     summary: 'Update a genre by ID',
   })
-  update(@Param('id') id: string, @Body() dto: UpdateGenreDto): Promise<Genre> {
-    return this.genreService.update(id, dto);
+  update(
+    @LoggedUser() user: User,
+    @Param('id') id: string,
+    @Body() dto: UpdateGenreDto,
+  ): Promise<Genre> {
+    return this.genreService.update(id, dto, user);
   }
 
   @Delete(':id')
@@ -61,7 +70,7 @@ export class GenreController {
   @ApiOperation({
     summary: 'Delete a genre by ID',
   })
-  delete(@Param('id') id: string) {
-    this.genreService.delete(id);
+  delete(@LoggedUser() user: User, @Param('id') id: string) {
+    this.genreService.delete(id, user);
   }
 }

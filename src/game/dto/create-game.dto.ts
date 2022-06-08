@@ -59,5 +59,5 @@ export class CreateGameDto {
     description: 'The genre of the game',
     example: 'RPG',
   })
-  genre: string;
+  genreName: string;
 }

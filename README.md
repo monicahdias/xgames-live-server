@@ -1,73 +1,52 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Projeto (Módulo 4): Xbox Live
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Backend - Estrutura básica requerida
+Criar uma API backend com usuários, perfis, jogos e gêneros.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+### Estrutura da Entidade: Usuários (Users)
+- Name;
+- Email;
+- Password;
+- CPF;
+- isAdmin;
 
-## Description
+### Estrutura da Entidade: Perfis (Profiles)
+- Title;
+- ImageUrl;
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### Estrutura da Entidade: Jogos (Games)
+- Title;
+- CoverImageUrl;
+- Description;
+- Year;
+- ImdbScore (0 a 5);
+- TrailerYouTubeUrl;
+- TrailerYouTubeUrl;
 
-## Installation
+### Estrutura da Entidade: Gêneros (Genres)
+- Name;
 
-```bash
-$ npm install
-```
+### Relações
+- Um usuário x muitos perfis;
+- Muitos jogos x muitos gêneros;
+- Muitos perfis x muitos jogos (jogos favoritos);
 
-## Running the app
+### Endpoints
+[Create] Usuários (não precisa de autenticação);
+[AUTH] [GET] Homepage: lista de jogos favoritos; lista de jogos, classificados por gênero;
+[AUTH] [CRUD] Perfis; Favoritar jogo;
+[AUTH] [ADMIN] [CRUD] Usuários (apenas admins podem gerenciar usuários);
+[AUTH] [ADMIN] [CRUD] Jogos (apenas admins podem criar jogos);
+[AUTH] [ADMIN] [CRUD] Gêneros (apenas admins podem criar gêneros).
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+### Requisitos
+- Validação de dados em todos os endpoints com class-validator;
+- Status Code corretos em todos os endpoints:
+    - 200, 201, 400, 404, etc.
+- Persistência de Dados no SQL com Prisma;
+- Formatação do código utilizando o Prettier/ESLint;
+- Documentação dos endpoints com Swagger;
+- Diagrama de relacionamentos do banco de dados;
+- Cors habilitado;
+- Deploy do projeto;
+- Deploy do banco de dados.

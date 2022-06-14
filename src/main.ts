@@ -12,7 +12,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('XGames Live Server')
-    .setDescription('Aplicação para gestão das mesas de uma pizzaria')
+    .setDescription('Games server for XGames Live')
     .setVersion('1.0.0')
     .addTag('status')
     .addTag('auth')

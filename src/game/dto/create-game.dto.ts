@@ -35,7 +35,7 @@ export class CreateGameDto {
   @IsNumber()
   @IsPositive()
   @ApiProperty({
-    description: 'The IMDB score of the game',
+    description: 'The IMDB score of the game (from 0 to 5)',
     example: 5,
   })
   imdbScore: number;
